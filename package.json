@@ -26,5 +26,9 @@
     "test": "mocha test.js --reporter spec"
   },
   "author": "Ayhan Kuru <ayhankuru@yandex.com.tr>",
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha": "~1.17.1",
+    "expect.js":"~0.2.0"
+  },
+  "homepage": "https://github.com/cobaimelan/xtorrent"
 }
