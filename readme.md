@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cobaimelan/xtorrent.png?branch=master)](https://travis-ci.org/cobaimelan/xtorrent)
+
 1337x.org simple api
 
 
