@@ -9,8 +9,8 @@ var expect = require('expect.js');
 				expect(data).to.be.an('object');
 				expect(data).to.have.length(7);
 				expect(data[0].title).to.eql('New Girl S03E14 HDTV x264-LOL');
-				expect(data[1].url).to.eql('http://1337x.org/torrent/738285/New-Girl-S03E14-720p-HDTV-X264-DIMENSION-PublicHD/');
-				expect(data[2].size).to.eql('124.94 MB');
+				expect(data[1].url).to.eql('http://1337x.org/torrent/738286/New-Girl-S03E14-HDTV-x264-LOL-ettv/');
+				expect(data[1].size).to.eql('124.94 MB');
 				done();
 			});
 
