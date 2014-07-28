@@ -23,7 +23,7 @@
     "url": "https://github.com/cobaimelan/xtorrent/issues"
   },
   "scripts": {
-    "test": "mocha test.js --reporter spec"
+    "test": "mocha test.js --reporter spec --timeout 15000"
   },
   "author": "Ayhan Kuru <ayhankuru@yandex.com.tr>",
   "devDependencies": {
