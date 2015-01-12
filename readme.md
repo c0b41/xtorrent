@@ -1,4 +1,4 @@
-[![Build Status](http://img.shields.io/travis/cobaimelan/xtorrent.svg?style=flat)](https://travis-ci.org/cobaimelan/xtorrent)
+[![Build Status](http://img.shields.io/travis/ayhankuru/xtorrent.svg?style=flat-square)](https://travis-ci.org/ayhankuru/xtorrent)
 
 1337x.org simple api
 
@@ -19,7 +19,7 @@ var xtorrent = require('xtorrent');
 
 
 ```js
-xtorrent.search('New Girl S01E12 ',function(err,list){
+xtorrent.search({query:"New Girl S01E12"},function(err,list){
     if(err) throw err
     else console.log(list);
 });
