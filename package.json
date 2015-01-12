@@ -1,6 +1,6 @@
 {
   "name": "xtorrent",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "1337x simple api",
   "main": "index.js",
   "repository": {
@@ -14,7 +14,8 @@
   ],
   "license": "BSD-2-Clause",
   "dependencies": {
-    "seven": "0.0.4"
+    "cheerio": "~0.18.0",
+    "request-promise": "~0.3.2"
   },
   "engines": [
     "node >= 0.8.0"
@@ -28,7 +29,7 @@
   "author": "Ayhan Kuru <ayhankuru@yandex.com.tr>",
   "devDependencies": {
     "mocha": "~1.17.1",
-    "expect.js":"~0.2.0"
+    "expect.js": "~0.2.0"
   },
   "homepage": "https://github.com/cobaimelan/xtorrent"
 }

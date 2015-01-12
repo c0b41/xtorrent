@@ -1,116 +1,96 @@
 /* @Name xtorrent
-*  @Version 0.0.0
+*  @Version 0.1.0
 *  @author Cobaimelan
 */
 
 // required packages..
-var seven =require('seven');
+var cheerio = require('cheerio'),
+	rq      = require('request-promise');
+	url     = "http://www.1337x.to";
 
 /**
  * search torrent
- * @param {str} string exam: New Girl S01E14
- * @param {fn} function 
+ * @param {str} object exam: New Girl S01E14
+ * @param {next} function 
  */
-function search(str,fn){
-	var go = new seven();
-	go.play('http://1337x.org/srch?search='+encodeURIComponent(str),function(err,data){
-		if(err){
-			fn(err,null)
-		}else{
-			var block =go.matchall(data,'<div class="torrentName">','</div>');
-			var seed =go.matchall(data,'<span class="seed">','</span>');
-			var leech =go.matchall(data,'<span class="leech">','</span>');
-			var size =go.matchall(data,'<span class="size">','</span>');
-			if(block == null){
-				fn(null,null);
-			}else{
-				var urls = block.map(function (post) {			
-			      return {
-			        title: post.clear(),
-			        url: 'http://1337x.org' + go.attr(post,'href')[1]
-			      };
-			    });
+function search(opt,next){
+	opt.page = opt.page ? opt.page : 1;
+	rq('http://www.1337x.to/search/'+encodeURIComponent(opt.query)+'/'+opt.page+'/').then(function(data){
 
-			    for (var i = urls.length - 1; i >= 0; i--) {
-			    	urls[i].seed =seed[i].clear();
-			    	urls[i].leech =leech[i].clear();
-			    	urls[i].size =size[i].clear();
-			    };
+		 var $detail = cheerio.load(data); 
 
-				fn(null,urls);	
+		 var $list = cheerio.load($detail('.tab-detail').children().last().html());
 
-			}
-		}
-	});
+		  var list = [];
+			$list('li').each(function(i, elem) {
+				var chunk = cheerio.load($list(this).html());
+				list[i] ={
+					title :chunk('strong').text(),
+					href:url+chunk('a').eq(1).attr('href'),
+					seed:chunk('.green').text(),
+					leech:chunk('.red').text(),
+					size:chunk('.coll-4').text(),
+					uploader:{
+						name:chunk('.coll-5').text(),
+						href:url+chunk('.coll-5 span a').attr('href')
+					}
+				}
+			});
+
+
+		 	next(null,list);
+
+	},function (err) {
+		next(err,null);
+	})
 }
 
 /**
  *  torrent info
  * @param {urk} string exam: http://1337x.org/torrent/738327/New-Girl-S03E14-HDTV-x264-LOL/
- * @param {fn} function 
+ * @param {next} function 
  */
 
-function info(url,fn) {
-	var go = new seven();
-	go.play(url,function(err,data){ 
+function info(url,next) {
+	rq(url).then(function(data){
+		var $detail = cheerio.load(data); 
+		var $content = cheerio.load($detail.html());
 
-		if(err){
-			fn(err,null);
-		}else{
-			var api={};
-				api.info={}
-			var title =go.matchall(data,'<div class="topHead">','</div>');
-				title =go.matchall(title[0],'<h2>','</h2>');
-			var block = go.matchall(data,'<span class="col02">','</span>');
-			var block2 =go.matchall(data,'<span class="col04">','</span>');
-			if(block !== null && block2 !== null && title !== null ){
-					block=block.concat(block2);
-					api.info.title=title[0].clear();
-					api.info.type=block[0].clear();
-					api.info.language=block[1].clear();
-					api.info.size=block[2].clear();
-					api.info.downloads=block[3].clear();
-					api.info.date=block[5].clear();
-					api.info.seeders=block[6].clear();
-					api.info.leechers=block[7].clear();
-			}
-			var durl =go.matchall(data,'<div class="torrentInfoBtn">','</div>');
-				if(durl !==null){
-					durl =go.attr(durl[0],'href');
-						durl=durl.map(function (url) {			
-					      return {
-					        url: url
-					      };
-					    });
-					api.download=durl;
-				}
-			var list =go.matchall(data,'<div class="tracklist">','</div>');
-			var	flist =go.matchall(list[0],'<li class="pft-file ext-','</li>');
-				if(flist !==null){
-					flist=flist.map(function (file) {			
-					      return {
-					        file: file.clear()
-					      };
-					    });
-					api.file=flist;
-				}
-			var tlist =go.matchall(list[1],'<li>','</li>');
-				if(tlist !==null ){
-							tlist=tlist.map(function (track) {			
-					      return {
-					        track: track.clear()
-					      };
-					    });
-					api.track=tlist;
-				}
-			fn(null,api);
+		var info =  {};
+
+		info.title =$content('.top-row strong').text();
+
+
+		info.category = $content('.category-detail ul.list li').eq(0).children('span').text().trim();
+		info.type = $content('.category-detail ul.list li').eq(1).children('span').text().trim();
+		info.language = $content('.category-detail ul.list li').eq(2).children('span').text().trim();
+		info.size = $content('.category-detail ul.list li').eq(3).children('span').text().trim();
+		info.uploaded = $content('.category-detail ul.list li').eq(4).children('span').text().trim();
+
+		info.downloads =$content('.category-detail ul.list li').eq(5).children('span').text().trim();
+		info.last_check =$content('.category-detail ul.list li').eq(6).children('span').text().trim();
+		info.date_uploaded =$content('.category-detail ul.list li').eq(7).children('span').text().trim();
+		info.seeders=$content('.category-detail ul.list li').eq(8).children('span').text().trim();
+		info.leechers=$content('.category-detail ul.list li').eq(9).children('span').text().trim();
+
+		info.download ={
+			magnet:$content('.category-detail ul.download-links li').eq(0).children('a').attr('href'),
+			file:$content('.category-detail ul.download-links li').eq(1).children('a').attr('href'),
+			direct:$content('.category-detail ul.download-links li').eq(2).children('a').attr('href')
 		}
-		
+
+			
+		info.files = [];
+		$content('.file-container ul').each(function (i,el) {
+			info.files.push($content('.file-container ul').eq(i).children('li').text());
+		})
+
+		next(null,info);
+	},function (err) {
+		next(err,null);
 	});
 
 };
-
-
-
+ 
 exports.search=search;
 exports.info=info;
