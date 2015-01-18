@@ -1,5 +1,7 @@
 [![Build Status](http://img.shields.io/travis/ayhankuru/xtorrent.svg?style=flat-square)](https://travis-ci.org/ayhankuru/xtorrent)
 
+[![Build Status](https://img.shields.io/david/ayhankuru/xtorrent.svg?style=flat-square)](https://david-dm.org/ayhankuru/xtorrent)
+
 1337x.org simple api
 
 
