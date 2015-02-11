@@ -2,6 +2,8 @@
 
 [![Build Status](https://img.shields.io/david/ayhankuru/xtorrent.svg?style=flat-square)](https://david-dm.org/ayhankuru/xtorrent)
 
+[![io.js supported](https://img.shields.io/badge/io.js-supported-green.svg?style=flat-square)](https://iojs.org) 
+
 1337x.org simple api
 
 
