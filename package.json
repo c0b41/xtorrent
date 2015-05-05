@@ -1,6 +1,6 @@
 {
   "name": "xtorrent",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "1337x simple api",
   "main": "index.js",
   "repository": {
@@ -15,7 +15,7 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "cheerio": "^0.19.0",
-    "request-promise": "^0.4.1"
+    "got-promise": "^3.0.1"
   },
   "bugs": {
     "url": "https://github.com/cobaimelan/xtorrent/issues"

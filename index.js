@@ -1,11 +1,11 @@
 /* @Name xtorrent
-*  @Version 0.1.0
+*  @Version 0.1.1
 *  @author Cobaimelan
 */
 
 // required packages..
 var cheerio = require('cheerio'),
-	rq      = require('request-promise');
+	got     = require('got-promise');
 	url     = "http://www.1337x.to";
 
 /**
@@ -15,9 +15,9 @@ var cheerio = require('cheerio'),
  */
 function search(opt,next){
 	opt.page = opt.page ? opt.page : 1;
-	rq('http://www.1337x.to/search/'+encodeURIComponent(opt.query)+'/'+opt.page+'/').then(function(data){
+	got('http://www.1337x.to/search/'+encodeURIComponent(opt.query)+'/'+opt.page+'/').then(function(data){
 
-		 var $detail = cheerio.load(data); 
+		 var $detail = cheerio.load(data.body); 
 
 		 var $list = cheerio.load($detail('.tab-detail').children().last().html());
 
@@ -52,8 +52,8 @@ function search(opt,next){
  */
 
 function info(url,next) {
-	rq(url).then(function(data){
-		var $detail = cheerio.load(data); 
+	got(url).then(function(data){
+		var $detail = cheerio.load(data.body); 
 		var $content = cheerio.load($detail.html());
 
 		var info =  {};
