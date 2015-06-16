@@ -1,11 +1,11 @@
 {
   "name": "xtorrent",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "1337x simple api",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:cobaimelan/xtorrent.git"
+    "url": "git@github.com:ayhankuru/xtorrent.git"
   },
   "keywords": [
     "request",
@@ -15,18 +15,19 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "cheerio": "^0.19.0",
+    "got": "^3.2.0",
     "got-promise": "^3.0.1"
   },
   "bugs": {
-    "url": "https://github.com/cobaimelan/xtorrent/issues"
+    "url": "https://github.com/ayhankuru/xtorrent/issues"
   },
   "scripts": {
-    "test": "iojs node_modules/mocha/bin/mocha test.js --reporter spec --timeout 15000"
+    "test": "mocha --harmony test.js --reporter spec --timeout 15000"
   },
   "author": "Ayhan Kuru <ayhankuru@yandex.com.tr>",
   "devDependencies": {
     "expect.js": "^0.3.1",
     "mocha": "^2.2.1"
   },
-  "homepage": "https://github.com/cobaimelan/xtorrent"
+  "homepage": "https://github.com/ayhankuru/xtorrent"
 }
