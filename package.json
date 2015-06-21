@@ -16,7 +16,7 @@
   "dependencies": {
     "cheerio": "^0.19.0",
     "got": "^3.2.0",
-    "got-promise": "^3.0.1"
+    "got-promise": "^4.1.0"
   },
   "bugs": {
     "url": "https://github.com/ayhankuru/xtorrent/issues"
