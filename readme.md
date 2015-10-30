@@ -21,9 +21,8 @@ var xtorrent = require('xtorrent');
 
 
 ```js
-xtorrent.search({query:"New Girl S01E12"},function(err,list){
-    if(err) throw err
-    else console.log(list);
+xtorrent.search({query:"New Girl S01E12"}).then(function (data) {
+  console.log(data);
 });
 ```
 
@@ -31,9 +30,7 @@ xtorrent.search({query:"New Girl S01E12"},function(err,list){
 
 
 ```js
-xtorrent.info('http://1337x.org/torrent/738290/Brooklyn-Nine-Nine-S01E15-HDTV-x264-2HD-ettv/',function(err,torrent){
-    if(err) throw err
-    else console.log(torrent);
-});
+xtorrent.info('http://1337x.org/torrent/738290/Brooklyn-Nine-Nine-S01E15-HDTV-x264-2HD-ettv/').then(function (data) {
+  console.log(data);
+})
 ```
-

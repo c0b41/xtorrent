@@ -1,23 +1,23 @@
 /* @Name xtorrent
-*  @Version 0.1.1
-*  @author Cobaimelan
+*  @Version 0.2.0
+*  @author ayhankuru
 */
 
 // required packages..
 var cheerio = require('cheerio'),
-	got     = require('got-promise');
+	got     = require('got');
 	url     = "http://www.1337x.to";
 
 /**
  * search torrent
  * @param {str} object exam: New Girl S01E14
- * @param {next} function 
  */
-function search(opt,next){
+function search(opt){
 	opt.page = opt.page ? opt.page : 1;
-	got('http://www.1337x.to/search/'+encodeURIComponent(opt.query)+'/'+opt.page+'/').then(function(data){
+	return got('http://www.1337x.to/search/'+encodeURIComponent(opt.query)+'/'+opt.page+'/')
+	.then(function(data){
 
-		 var $detail = cheerio.load(data.body); 
+		 var $detail = cheerio.load(data.body);
 
 		 var $list = cheerio.load($detail('.tab-detail').children().last().html());
 
@@ -38,22 +38,19 @@ function search(opt,next){
 			});
 
 
-		 	next(null,list);
+		 return list || null;
 
-	},function (err) {
-		next(err,null);
-	})
+	});
 }
 
 /**
  *  torrent info
- * @param {urk} string exam: http://1337x.org/torrent/738327/New-Girl-S03E14-HDTV-x264-LOL/
- * @param {next} function 
+ * @param {url} string exam: http://1337x.org/torrent/738327/New-Girl-S03E14-HDTV-x264-LOL/
  */
 
-function info(url,next) {
-	got(url).then(function(data){
-		var $detail = cheerio.load(data.body); 
+function info(url) {
+	return got(url).then(function(data){
+		var $detail = cheerio.load(data.body);
 		var $content = cheerio.load($detail.html());
 
 		var info =  {};
@@ -79,18 +76,16 @@ function info(url,next) {
 			direct:$content('.category-detail ul.download-links li').eq(2).children('a').attr('href')
 		}
 
-			
+
 		info.files = [];
 		$content('.file-container ul').each(function (i,el) {
 			info.files.push($content('.file-container ul').eq(i).children('li').text());
 		})
 
-		next(null,info);
-	},function (err) {
-		next(err,null);
+	 return info || null;
 	});
 
 };
- 
+
 exports.search=search;
 exports.info=info;
