@@ -1,6 +1,6 @@
 {
   "name": "xtorrent",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "1337x simple api",
   "main": "index.js",
   "repository": {
@@ -21,12 +21,13 @@
     "url": "https://github.com/ayhankuru/xtorrent/issues"
   },
   "scripts": {
-    "test": "mocha --harmony test.js --reporter spec --timeout 15000"
+    "test": "mocha --harmony test.js --reporter spec --timeout 15000 --require mocha-clean"
   },
   "author": "Ayhan Kuru <ayhankuru@yandex.com.tr>",
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "mocha": "^2.2.1"
+    "mocha": "^2.3.3",
+    "mocha-clean": "^0.4.0"
   },
   "homepage": "https://github.com/ayhankuru/xtorrent"
 }

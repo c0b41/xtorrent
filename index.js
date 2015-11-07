@@ -1,16 +1,19 @@
-/* @Name xtorrent
-*  @Version 0.2.0
-*  @author ayhankuru
-*/
 
-// required packages..
+/**!
+ * xTorrent
+ * @author Ayhankuru   <cobaimelan@protonmail.ch>
+ * @license MIT
+ */
+
 var cheerio = require('cheerio'),
 	got     = require('got');
 	url     = "http://www.1337x.to";
 
 /**
- * search torrent
- * @param {str} object exam: New Girl S01E14
+ * @method search
+ * @desc xTorrent search method
+ * @param {object} opt - example {query:"Fight Club"}
+ * @returns {function} promise
  */
 function search(opt){
 	opt.page = opt.page ? opt.page : 1;
@@ -43,10 +46,12 @@ function search(opt){
 	});
 }
 
-/**
- *  torrent info
- * @param {url} string exam: http://1337x.org/torrent/738327/New-Girl-S03E14-HDTV-x264-LOL/
- */
+ /**
+  * @method İnfo
+  * @desc xTorrent info method
+  * @param {string} url - example http://1337x.org/torrent/738327/New-Girl-S03E14-HDTV-x264-LOL/
+  * @returns {function} promise
+  */
 
 function info(url) {
 	return got(url).then(function(data){
@@ -87,5 +92,5 @@ function info(url) {
 
 };
 
-exports.search=search;
-exports.info=info;
+exports.search = search;
+exports.info = info;
