@@ -7,7 +7,7 @@
 
 var cheerio = require('cheerio'),
 	got     = require('got');
-	url     = "http://www.1337x.to";
+	url     = "http://1337x.to";
 
 /**
  * @method search
@@ -17,29 +17,28 @@ var cheerio = require('cheerio'),
  */
 function search(opt){
 	opt.page = opt.page ? opt.page : 1;
-	return got('http://www.1337x.to/search/'+encodeURIComponent(opt.query)+'/'+opt.page+'/')
+	return got(`${url}/search/${encodeURIComponent(opt.query).replace(/%20/g, '+')}/${opt.page}/`)
 	.then(function(data){
 
 		 var $detail = cheerio.load(data.body);
+		 
+		 var $list = cheerio.load($detail('.table-list tbody').html());
 
-		 var $list = cheerio.load($detail('.tab-detail').children().last().html());
-
-		  var list = [];
-			$list('li').each(function(i, elem) {
+		 var list = [];
+			$list('tr').each(function(i, elem) {
 				var chunk = cheerio.load($list(this).html());
 				list[i] ={
-					title :chunk('strong').text(),
-					href:url+chunk('a').eq(1).attr('href'),
-					seed:chunk('.green').text(),
-					leech:chunk('.red').text(),
+					title:chunk('.coll-1').text(),
+					href:`${url}${chunk('a').eq(1).attr('href')}`,
+					seed:chunk('.coll-2').text(),
+					leech:chunk('.coll-3').text(),
 					size:chunk('.coll-4').text(),
 					uploader:{
 						name:chunk('.coll-5').text(),
-						href:url+chunk('.coll-5 span a').attr('href')
+						href:url+chunk('.coll-5 a').attr('href')
 					}
 				}
 			});
-
 
 		 return list || null;
 
@@ -60,31 +59,33 @@ function info(url) {
 
 		var info =  {};
 
-		info.title =$content('.top-row strong').text();
+		info.title =$content('.box-info-heading').text();
 
+		$info_left = cheerio.load($content('.torrent-category-detail ul.list').eq(0).html());
+		$info_right = cheerio.load($content('.torrent-category-detail ul.list').eq(1).html());
 
-		info.category = $content('.category-detail ul.list li').eq(0).children('span').text().trim();
-		info.type = $content('.category-detail ul.list li').eq(1).children('span').text().trim();
-		info.language = $content('.category-detail ul.list li').eq(2).children('span').text().trim();
-		info.size = $content('.category-detail ul.list li').eq(3).children('span').text().trim();
-		info.uploaded = $content('.category-detail ul.list li').eq(4).children('span').text().trim();
+		
+		info.category = $info_left('li').eq(0).children('span').text().trim();
+		info.type = $info_left('li').eq(1).children('span').text().trim();
+		info.language = $info_left('li').eq(2).children('span').text().trim();
+		info.size = $info_left('li').eq(3).children('span').text().trim();
+		info.uploaded = $info_left('li').eq(4).children('span').text().trim();
 
-		info.downloads =$content('.category-detail ul.list li').eq(5).children('span').text().trim();
-		info.last_check =$content('.category-detail ul.list li').eq(6).children('span').text().trim();
-		info.date_uploaded =$content('.category-detail ul.list li').eq(7).children('span').text().trim();
-		info.seeders=$content('.category-detail ul.list li').eq(8).children('span').text().trim();
-		info.leechers=$content('.category-detail ul.list li').eq(9).children('span').text().trim();
+	
+		info.downloads = $info_right('li').eq(0).children('span').text().trim();
+		info.last_check = $info_right('li').eq(1).children('span').text().trim();
+		info.date_uploaded = $info_right('li').eq(2).children('span').text().trim();
+		info.seeders = $info_right('li').eq(3).children('span').text().trim();
+		info.leechers = $info_right('li').eq(4).children('span').text().trim();
 
 		info.download ={
-			magnet:$content('.category-detail ul.download-links li').eq(0).children('a').attr('href'),
-			file:$content('.category-detail ul.download-links li').eq(1).children('a').attr('href'),
-			direct:$content('.category-detail ul.download-links li').eq(2).children('a').attr('href')
+			magnet:$content('.torrent-category-detail ul.download-links li').eq(0).children('a').attr('href')
 		}
 
 
 		info.files = [];
-		$content('.file-container ul').each(function (i,el) {
-			info.files.push($content('.file-container ul').eq(i).children('li').text());
+		$content('.file-content ul').each(function (i,el) {
+			info.files.push($content('.file-content ul').eq(i).children('li').text());
 		})
 
 	 return info || null;
