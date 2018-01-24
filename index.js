@@ -79,7 +79,7 @@ function info(url) {
 		info.leechers = $info_right('li').eq(4).children('span').text().trim();
 
 		info.download ={
-			magnet:$content('.torrent-category-detail ul.download-links li').eq(0).children('a').attr('href')
+			magnet:$content('body > main > div > div > div > div.box-info-detail.no-top-radius > div.torrent-category-detail.clearfix > ul.download-links-dontblock.btn-wrap-list > li:nth-child(1)').eq(0).children('a').attr('href')
 		}
 
 
