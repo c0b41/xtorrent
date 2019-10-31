@@ -1,7 +1,7 @@
 
 /**!
  * xTorrent
- * @author Ayhankuru   <cobaimelan@protonmail.ch>
+ * @author c0b41   <cobaimelan@protonmail.ch>
  * @license MIT
  */
 
