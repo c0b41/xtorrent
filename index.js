@@ -61,8 +61,8 @@ function info(url) {
 
 		info.title =$content('.box-info-heading').text();
 
-		$info_left = cheerio.load($content('.torrent-category-detail ul.list').eq(0).html());
-		$info_right = cheerio.load($content('.torrent-category-detail ul.list').eq(1).html());
+		$info_left = cheerio.load($content('ul.list').eq(1).html());
+		$info_right = cheerio.load($content('ul.list').eq(2).html());
 
 		
 		info.category = $info_left('li').eq(0).children('span').text().trim();
