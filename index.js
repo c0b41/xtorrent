@@ -21,9 +21,9 @@ var cheerio = require('cheerio'),
 function search(opt){
 	opt.page = opt.page ? opt.page : 1;
 
-	opt.category = validCategories.indexOf(opt.category) >= 0 ? opt.category : undefined;
-	opt.orderBy = validOrderBy.indexOf(opt.orderBy) >= 0 ? opt.orderBy : "seeders";
-	opt.sortBy = validSortBy.indexOf(opt.sortBy) >= 0 ? opt.sortBy : "desc";
+	opt.category = validCategories.includes(opt.category) ? opt.category : undefined;
+	opt.orderBy = validOrderBy.includes(opt.orderBy) ? opt.orderBy : "seeders";
+	opt.sortBy = validSortBy.includes(opt.sortBy) ? opt.sortBy : "desc";
 
 	reqUrl = `${url}/sort-${opt.category ? 'category-' : ''}search/${encodeURIComponent(opt.query).replace(/%20/g, '+')}/${opt.category ? opt.category+'/' : ''}${opt.orderBy}/${opt.sortBy}/${opt.page}/`;
 	return got(reqUrl)
