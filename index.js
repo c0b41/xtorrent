@@ -8,6 +8,9 @@
 var cheerio = require('cheerio'),
 	got     = require('got');
 	url     = "http://1337x.to";
+	validCategories = ['Movies', 'TV', 'Games', 'Music', 'Apps', 'Documentaries', 'Anime', 'Other', 'XXX' ];
+	validOrderBy = ['time', 'size', 'seeders', 'leechers'];
+	validSortBy = ['desc', 'asc'];
 
 /**
  * @method search
@@ -17,7 +20,13 @@ var cheerio = require('cheerio'),
  */
 function search(opt){
 	opt.page = opt.page ? opt.page : 1;
-	return got(`${url}/search/${encodeURIComponent(opt.query).replace(/%20/g, '+')}/${opt.page}/`)
+
+	opt.category = validCategories.indexOf(opt.category) >= 0 ? opt.category : undefined;
+	opt.orderBy = validOrderBy.indexOf(opt.orderBy) >= 0 ? opt.orderBy : "seeders";
+	opt.sortBy = validSortBy.indexOf(opt.sortBy) >= 0 ? opt.sortBy : "desc";
+
+	reqUrl = `${url}/sort-${opt.category ? 'category-' : ''}search/${encodeURIComponent(opt.query).replace(/%20/g, '+')}/${opt.category ? opt.category+'/' : ''}${opt.orderBy}/${opt.sortBy}/${opt.page}/`;
+	return got(reqUrl)
 	.then(function(data){
 
 		 var $detail = cheerio.load(data.body);

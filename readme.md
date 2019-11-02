@@ -19,12 +19,48 @@ var xtorrent = require('xtorrent');
 
 ## Search
 
+### Simple search
 
 ```js
 xtorrent.search({query:"New Girl S01E12"}).then(function (data) {
   console.log(data);
 });
 ```
+
+### Advanced search
+
+```js
+xtorrent.search({
+  query:"Battlestar Galactica", 
+  category:"TV", 
+  orderBy:"time", 
+  sortBy:"desc",
+  page: 2
+}).then(function (data) {
+  console.log(data);
+});
+```
+
+#### Parameters
+
+**page**  
+{integer} optional.  
+If you need more results you can ask for page 2, etc. Default is 1.  
+
+**category**  
+{string} optional.  
+To search only in the specified category.  
+Must be one of those values: 'Movies', 'TV', 'Games', 'Music', 'Apps', 'Documentaries', 'Anime', 'Other', 'XXX'.  
+
+**orderBy**  
+{string} optional.  
+To sort the results.  
+Must be one of those values: 'time', 'size', 'seeders', 'leechers'. Default is 'seeders'.  
+
+**sortBy**  
+{string} optional.  
+To sort the results.   
+Must be one of those values: 'desc', 'asc'. Default is 'desc'.  
 
 ## İnfo
 
