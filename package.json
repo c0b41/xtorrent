@@ -1,21 +1,23 @@
 {
   "name": "xtorrent",
-  "version": "0.2.4",
-  "description": "1337x simple api",
+  "version": "0.3.0",
+  "description": "1337x unoffical api",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:c0b41/xtorrent.git"
   },
   "keywords": [
-    "request",
+    "tv",
+    "movies",
     "torrent",
-    "api"
+    "api",
+    "xtorrent"
   ],
   "license": "MIT",
   "dependencies": {
     "cheerio": "^0.22.0",
-    "got": "^6.5.0"
+    "got": "^9.6.0"
   },
   "bugs": {
     "url": "https://github.com/c0b41/xtorrent/issues"
@@ -28,9 +30,6 @@
     "expect.js": "^0.3.1",
     "mocha": "^2.3.3",
     "mocha-clean": "^0.4.0"
-  },
-  "engines": {
-    "node": ">=4.2.0"
   },
   "homepage": "https://github.com/c0b41/xtorrent"
 }
