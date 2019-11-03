@@ -68,7 +68,7 @@ function info(url) {
 
 		var info =  {};
 
-		info.title = $content('.head').text();
+		info.title =$content('.box-info-heading').text();
 
 		$info_left = cheerio.load($content('ul.list').eq(1).html());
 		$info_right = cheerio.load($content('ul.list').eq(2).html());
