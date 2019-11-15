@@ -36,6 +36,9 @@ function search(opt){
 		 var list = [];
 			$list('tr').each(function(i, elem) {
 				var chunk = cheerio.load($list(this).html());
+
+				chunk('.coll-4 span.seeds').remove() // TODO: remove after something more clever.
+
 				list[i] ={
 					title:chunk('.coll-1').text(),
 					href:`${url}${chunk('a').eq(1).attr('href')}`,
