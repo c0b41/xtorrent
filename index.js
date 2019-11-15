@@ -71,7 +71,19 @@ function info(url) {
 
 		var info =  {};
 
-		info.title =$content('.box-info-heading').text();
+		let title = null
+		
+		try{ // TODO: remove after something more clever.
+			title = $detail('title').text() 
+			let matches = title.match(/Download(.*?) ⭐/)
+			if(matches.length > 0){
+				title = matches[1].trim()
+			}
+		}catch(err){
+			title = $content('.box-info-heading').text();
+		}
+
+		info.title = title
 
 		$info_left = cheerio.load($content('ul.list').eq(1).html());
 		$info_right = cheerio.load($content('ul.list').eq(2).html());
