@@ -16,7 +16,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^0.22.0",
+    "cheerio": "^1.0.0-rc.3",
     "got": "^9.6.0"
   },
   "bugs": {
@@ -28,8 +28,8 @@
   "author": "c0b41 <cobaimelan@protonmail.ch>",
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "mocha": "^2.3.3",
-    "mocha-clean": "^0.4.0"
+    "mocha": "^6.2.2",
+    "mocha-clean": "^1.0.0"
   },
   "homepage": "https://github.com/c0b41/xtorrent"
 }
