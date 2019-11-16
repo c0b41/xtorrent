@@ -22,7 +22,7 @@ describe('Xtorrent Test', () => {
         expect(data).to.be.an('object');
         expect(data.title).to.eql('New Girl S03E14 HDTV x264-LOL');
         expect(data.category).to.eql('TV');
-        expect(data.size).to.eql('124.94 MB');
+        expect(data.size).to.eql('124.9 MB');
       });
   });
 });

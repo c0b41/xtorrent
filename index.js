@@ -81,20 +81,8 @@ const info = url => {
 
     let info = {};
 
-    let title = null;
-
-    try {
-      // TODO: remove after something more clever.
-      title = $detail('title').text();
-      let matches = title.match(/Download(.*?) ⭐/);
-      if (matches.length > 0) {
-        title = matches[1].trim();
-      }
-    } catch (err) {
-      title = $content('.box-info-heading').text();
-    }
-
-    info.title = title;
+    info.title = $detail('title').text();
+    info.title = info.title.slice(9).substring(0, info.title.length - 25);
 
     $info_left = cheerio.load(
       $content('ul.list')
