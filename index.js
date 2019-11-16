@@ -39,28 +39,27 @@ const search = opt => {
   }${opt.orderBy}/${opt.sortBy}/${opt.page || 1}/`;
 
   return got(reqUrl).then(data => {
-    let $detail = cheerio.load(data.body);
+    let $ = cheerio.load(data.body);
 
-    let $list = cheerio.load($detail('.table-list tbody').html());
+    let table = $('tbody > tr');
 
     let list = [];
-    $list('tr').each((i, elem) => {
-      let chunk = cheerio.load($list(this).html());
-
-      chunk('.coll-4 span.seeds').remove(); // TODO: remove after something more clever.
+    table.each((i, elem) => {
+      let chunk = cheerio.load(elem);
 
       list[i] = {
         title: chunk('.coll-1').text(),
-        href: `${url}${chunk('a')
+        href: chunk('a')
           .eq(1)
-          .attr('href')}`,
+          .attr('href'),
         seed: chunk('.coll-2').text(),
         leech: chunk('.coll-3').text(),
-        size: chunk('.coll-4').text(),
-        uploader: {
-          name: chunk('.coll-5').text(),
-          href: url + chunk('.coll-5 a').attr('href'),
-        },
+        size: chunk('.coll-4')
+          .children()
+          .remove()
+          .end()
+          .text(),
+        uploader: chunk('.coll-5').text(),
       };
     });
 

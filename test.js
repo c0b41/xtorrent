@@ -4,14 +4,13 @@ const expect = require('expect.js');
 describe('Xtorrent Test', () => {
   it('New Girl Search Test', () => {
     return xtorrent.search({query: 'New Girl S03E14'}).then(data => {
-      console.log(data);
       expect(data).to.be.an('object');
       expect(data[0].title).to.eql('New Girl S03E14 HDTV x264-LOL');
       expect(data[0].href).to.eql(
-        'http://www.1337x.to/torrent/738327/New-Girl-S03E14-HDTV-x264-LOL/',
+        '/torrent/738327/New-Girl-S03E14-HDTV-x264-LOL/',
       );
-      expect(data[0].size).to.eql('124.94 MB');
-      expect(data[0].uploader.name).to.eql('xbex');
+      expect(data[0].size).to.eql('124.9 MB');
+      expect(data[0].uploader).to.eql('xbex');
       expect(data.length).to.eql(8);
     });
   });
