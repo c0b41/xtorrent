@@ -32,7 +32,7 @@ const search = opt => {
   opt.orderBy = validOrderBy.includes(opt.orderBy) ? opt.orderBy : 'seeders';
   opt.sortBy = validSortBy.includes(opt.sortBy) ? opt.sortBy : 'desc';
 
-  let reqUrl = `${url}/sort-${
+  let reqUrl = `${opt.url || url}/sort-${
     opt.category ? 'category-' : ''
   }search/${encodeURIComponent(opt.query)}/${
     opt.category ? opt.category + '/' : ''
