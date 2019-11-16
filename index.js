@@ -34,7 +34,7 @@ const search = opt => {
 
   let reqUrl = `${url}/sort-${
     opt.category ? 'category-' : ''
-  }search/${encodeURIComponent(opt.query).replace(/%20/g, '+')}/${
+  }search/${encodeURIComponent(opt.query)}/${
     opt.category ? opt.category + '/' : ''
   }${opt.orderBy}/${opt.sortBy}/${opt.page || 1}/`;
 
