@@ -1,32 +1,29 @@
-var xtorrent =require('./index.js');
-var expect = require('expect.js');
+const xtorrent = require('./index.js');
+const expect = require('expect.js');
 
-describe('Xtorrent Test', function () {
+describe('Xtorrent Test', () => {
+  it('New Girl Search Test', () => {
+    return xtorrent.search({query: 'New Girl S03E14'}).then(data => {
+      console.log(data);
+      expect(data).to.be.an('object');
+      expect(data[0].title).to.eql('New Girl S03E14 HDTV x264-LOL');
+      expect(data[0].href).to.eql(
+        'http://www.1337x.to/torrent/738327/New-Girl-S03E14-HDTV-x264-LOL/',
+      );
+      expect(data[0].size).to.eql('124.94 MB');
+      expect(data[0].uploader.name).to.eql('xbex');
+      expect(data.length).to.eql(8);
+    });
+  });
 
-		it('New Girl Search Test', function () {
-
-		return	xtorrent.search({query:"New Girl S03E14"}).then(function(data){
-	
-				expect(data).to.be.an('object');
-				expect(data[0].title).to.eql('New Girl S03E14 HDTV x264-LOL');
-				expect(data[0].href).to.eql('http://www.1337x.to/torrent/738327/New-Girl-S03E14-HDTV-x264-LOL/');
-				expect(data[0].size).to.eql('124.94 MB');
-				expect(data[0].uploader.name).to.eql('xbex');
-				expect(data.length).to.eql(8);
-
-			});
-		});
-
-		it('New Girl İnfo Test', function () {
-
-			return xtorrent.info("http://www.1337x.to/torrent/738327/New-Girl-S03E14-HDTV-x264-LOL/").then(function(data){
-
-				expect(data).to.be.an('object');
-				expect(data.title).to.eql('New Girl S03E14 HDTV x264-LOL');
-				expect(data.category).to.eql('TV');
-				expect(data.size).to.eql('124.94 MB');
-
-			});
-		});
-
+  it('New Girl İnfo Test', () => {
+    return xtorrent
+      .info('http://www.1337x.to/torrent/738327/New-Girl-S03E14-HDTV-x264-LOL/')
+      .then(data => {
+        expect(data).to.be.an('object');
+        expect(data.title).to.eql('New Girl S03E14 HDTV x264-LOL');
+        expect(data.category).to.eql('TV');
+        expect(data.size).to.eql('124.94 MB');
+      });
+  });
 });
