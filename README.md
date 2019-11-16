@@ -40,6 +40,10 @@ xtorrent
 
 #### Parameters
 
+**url**  
+{string} optional.  
+If you need to use custom domain.
+
 **page**  
 {integer} optional.  
 If you need more results you can ask for page 2, etc. Default is 1.
