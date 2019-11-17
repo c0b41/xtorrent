@@ -147,8 +147,13 @@ const info = url => {
       .text()
       .trim();
 
+    info.infohash = $content('.infohash-box > p > span').text();
+
     info.download = {
       magnet: $content('ul > li > a[href^=magnet]')
+        .eq(0)
+        .attr('href'),
+      torrent: $content('.dropdown > ul > li > a[href^=http]')
         .eq(0)
         .attr('href'),
     };
@@ -167,5 +172,5 @@ const info = url => {
   });
 };
 
-exports.search = search;
-exports.info = info;
+module.exports.search = search;
+module.exports.info = info;
