@@ -83,7 +83,12 @@ const info = url => {
     let info = {};
 
     info.title = $detail('title').text();
-    info.title = info.title.slice(9).substring(0, info.title.length - 25);
+
+    info.title = info.title
+      .slice(9)
+      .substring(0, info.title.length - 25)
+      .replace('⭐', '')
+      .trim();
 
     $info_left = cheerio.load(
       $content('ul.list')
