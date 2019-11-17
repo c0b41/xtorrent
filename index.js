@@ -43,11 +43,12 @@ const search = opt => {
 
     let table = $('tbody > tr');
 
-    let list = [];
+    let torrents = [];
+
     table.each((i, elem) => {
       let chunk = cheerio.load(elem);
 
-      list[i] = {
+      torrents.push({
         title: chunk('.coll-1').text(),
         href: chunk('a')
           .eq(1)
@@ -60,10 +61,10 @@ const search = opt => {
           .end()
           .text(),
         uploader: chunk('.coll-5').text(),
-      };
+      });
     });
 
-    return list || null;
+    return {domain: opt.url || url, query: opt.query, torrents};
   });
 };
 
