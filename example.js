@@ -1,11 +1,12 @@
 var xtorrent = require('./');
 
 (async () => {
+  console.time('Sample results');
   // Simple search
   try {
     console.log(await xtorrent.search({query: 'New Girl S01E12'}));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 
   // Advanced search
@@ -19,7 +20,7 @@ var xtorrent = require('./');
       }),
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 
   // Info
@@ -30,6 +31,7 @@ var xtorrent = require('./');
       ),
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
+  console.timeEnd('Sample results');
 })();
