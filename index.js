@@ -7,7 +7,7 @@
 const cheerio = require('cheerio'),
   got = require('got'),
   url = 'http://1337x.to',
-  validCategories = [
+  validCategories = new Set([
     'Movies',
     'TV',
     'Games',
@@ -17,9 +17,9 @@ const cheerio = require('cheerio'),
     'Anime',
     'Other',
     'XXX',
-  ],
-  validOrderBy = ['time', 'size', 'seeders', 'leechers'],
-  validSortBy = ['desc', 'asc'];
+  ]),
+  validOrderBy = new Set(['time', 'size', 'seeders', 'leechers']),
+  validSortBy = new Set(['desc', 'asc']);
 
 /**
  * @method search
@@ -28,9 +28,9 @@ const cheerio = require('cheerio'),
  * @returns {function} promise
  */
 const search = opt => {
-  opt.category = validCategories.includes(opt.category) ? opt.category : null;
-  opt.orderBy = validOrderBy.includes(opt.orderBy) ? opt.orderBy : 'seeders';
-  opt.sortBy = validSortBy.includes(opt.sortBy) ? opt.sortBy : 'desc';
+  opt.category = validCategories.has(opt.category) ? opt.category : null;
+  opt.orderBy = validOrderBy.has(opt.orderBy) ? opt.orderBy : 'seeders';
+  opt.sortBy = validSortBy.has(opt.sortBy) ? opt.sortBy : 'desc';
 
   let reqUrl = `${opt.url || url}/sort-${
     opt.category ? 'category-' : ''
