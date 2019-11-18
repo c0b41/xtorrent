@@ -1,6 +1,6 @@
 {
   "name": "xtorrent",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "1337x unoffical api",
   "main": "index.js",
   "repository": {
@@ -23,7 +23,7 @@
     "url": "https://github.com/c0b41/xtorrent/issues"
   },
   "scripts": {
-    "test": "mocha --harmony test.js --reporter spec --timeout 15000 --require mocha-clean"
+    "test": "mocha test.js --reporter spec --timeout 15000 --require mocha-clean"
   },
   "engines": {
     "node": ">=8.0.0"
