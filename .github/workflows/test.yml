@@ -1,3 +1,8 @@
+name: Test
+on:
+  push:
+    branches:
+      - master
 jobs:
   test:
     name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
