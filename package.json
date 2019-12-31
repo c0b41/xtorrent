@@ -26,7 +26,7 @@
     "test": "mocha test.js --reporter spec --timeout 15000 --require mocha-clean"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "author": "c0b41 <cobaimelan@protonmail.ch>",
   "devDependencies": {
