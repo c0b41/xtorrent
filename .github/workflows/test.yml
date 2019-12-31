@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node_version: [8, 10, 12]
+        node_version: [10, 12, 13]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
@@ -20,7 +20,7 @@ jobs:
       with:
         node-version: ${{ matrix.node_version }}
     
-    - name: yarb install and test
+    - name: yarn install and test
       run: |
         yarn install
         yarn test
