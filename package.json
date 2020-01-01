@@ -1,6 +1,6 @@
 {
   "name": "xtorrent",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "1337x unoffical api",
   "main": "index.js",
   "repository": {
