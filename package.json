@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "got": "^9.6.0"
+    "got": "^11.8.5"
   },
   "bugs": {
     "url": "https://github.com/c0b41/xtorrent/issues"
